@@ -1,13 +1,9 @@
 using System.Net;
 using ApiPagamentos.Authentication;
 using ApiPagamentos.Business;
-using ApiPagamentos.Context;
 using ApiPagamentos.Pagination;
-using ApiPagamentos.Repositories;
 using ApiPagamentos.ValueObjects;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace ApiPagamentos.Controllers;
 
@@ -32,4 +28,11 @@ public class VendasController : ControllerBase
     {
         return Ok(Paginator<VendaVO>.GetPaginator(_vendaBusiness.FindAll(), query));
     }
+
+    [HttpGet("search")]
+    public ActionResult<string> GetByRangeDate([FromQuery] VendaDateQueryString query)
+    {
+        return query.Inicio!;
+    }
+
 }

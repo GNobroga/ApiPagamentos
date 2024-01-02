@@ -15,10 +15,14 @@ public class Venda : BaseEntity
 
     [Display(Name = "status")]
     [RegularExpression(@"(processando|pago|falha)", ErrorMessage = "O {0} precisa ter um dos valores: processado | pago | falha")]
+    [Required(ErrorMessage = "O {0} é requirido")]
     public string? Status { get; set; }
 
     [Display(Name = "pagamento")]
     [RegularExpression(@"(cartao|pix|boleto)", ErrorMessage = "O {0} precisa ter um dos valores: cartao | pix | boleto")]
+    [Required(ErrorMessage = "O {0} é requirido")]
     public string? Pagamento { get; set; }
+
+    public DateTime Data { get; set; } = DateTime.Now;
 
 }

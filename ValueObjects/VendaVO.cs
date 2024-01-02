@@ -11,4 +11,6 @@ public class VendaVO
 
     public string? Pagamento { get; set; }
 
+    public DateTime Data { get; set; }
+
 }
