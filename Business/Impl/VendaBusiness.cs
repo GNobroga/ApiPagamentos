@@ -20,7 +20,7 @@ public class VendaBusiness : IVendaBusiness
     public VendaVO Create(VendaVO vo)
     {
        var entity = _mapper.Map<Venda>(vo);
-       entity.Id = default;
+       entity.Id = null;
        _repository.Create(entity);
        return _mapper.Map<VendaVO>(entity);
     }

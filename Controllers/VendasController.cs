@@ -15,7 +15,7 @@ namespace ApiPagamentos.Controllers;
 public class VendasController : ControllerBase 
 {   
 
-    public const string CONTENT_TYPE = "applcation/json";
+    public const string CONTENT_TYPE = "application/json";
     readonly Jwt jwt;
 
     readonly IVendaBusiness _vendaBusiness;
