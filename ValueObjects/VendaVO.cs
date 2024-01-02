@@ -1,10 +1,14 @@
 namespace ApiPagamentos.ValueObjects;
 
-public record VendaVO(
-    string Id,
-    string Nome,
-    decimal Preco,
-    string Pagamento,
-    int Parcelas,
-    DateTime Data
-);
+public class VendaVO
+{
+    public string? Id { get; set; }
+    public string? Nome { get; set; }
+
+    public decimal Preco { get; set; }
+
+    public string? Status { get; set; }
+
+    public string? Pagamento { get; set; }
+
+}

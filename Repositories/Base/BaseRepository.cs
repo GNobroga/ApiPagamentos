@@ -19,7 +19,7 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public bool Delete(long id)
+    public bool Delete(string id)
     {
         if (Exists(id)) {
             var entity = _context.Find<T>(id)!;
@@ -29,7 +29,7 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
         return false;
     }
 
-    public bool Exists(long id)
+    public bool Exists(string id)
     {
         return _context.Find<T>(id) is not null;
     }
@@ -37,6 +37,11 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     public IEnumerable<T> FindAll()
     {
        return _context.Set<T>().ToList();
+    }
+
+    public T FindById(string id)
+    {
+        return _context.Find<T>(id)!;
     }
 
     public T Update(T t)

@@ -5,11 +5,12 @@ namespace ApiPagamentos.Repositories.Base;
 public interface IRepository<T> where T: BaseEntity
 {
     T Create(T entity);
+    T FindById(string id);
     IEnumerable<T> FindAll();
 
     T Update(T t);
 
-    bool Delete(long id);
+    bool Delete(string id);
 
-    bool Exists(long id);
+    bool Exists(string id);
 }

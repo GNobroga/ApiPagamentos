@@ -1,6 +1,9 @@
 using System.Text;
 using ApiPagamentos.Authentication;
+using ApiPagamentos.Business;
+using ApiPagamentos.Business.Impl;
 using ApiPagamentos.Extensions;
+using ApiPagamentos.Repositories;
 using ApiPagamentos.ValueObjects.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -39,12 +42,19 @@ builder.Services.AddSwaggerGen(opt => {
 
 builder.Services.AddApiVersioning();
 
-builder.Services.AddAutoMapper(opt => opt.AddProfile<MapperProfile>());
 
 builder.AddApiDbContext();
 
 builder.Services.AddSingleton<Jwt>();
+
 builder.Services.Configure<Jwt>(builder.Configuration.GetSection("Jwt"));
+
+
+builder.Services.AddTransient<IVendaRepository, VendaRepository>();
+builder.Services.AddTransient<IVendaBusiness, VendaBusiness>();
+
+builder.Services.AddAutoMapper(opt => opt.AddProfile<MapperProfile>());
+
 
 var app = builder.Build();
 

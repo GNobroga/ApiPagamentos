@@ -1,4 +1,10 @@
+using System.Net;
 using ApiPagamentos.Authentication;
+using ApiPagamentos.Business;
+using ApiPagamentos.Context;
+using ApiPagamentos.Pagination;
+using ApiPagamentos.Repositories;
+using ApiPagamentos.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -12,22 +18,18 @@ public class VendasController : ControllerBase
 {   
     readonly Jwt jwt;
 
-    public VendasController(IOptions<Jwt> opt)
+    readonly IVendaBusiness _vendaBusiness;
+
+    public VendasController(Jwt jwt, IVendaBusiness vendaBusiness)
     {
-        jwt = opt.Value;
+        this.jwt = jwt;
+        _vendaBusiness = vendaBusiness;
     }
 
     [HttpGet]
-    public string GetPublic() 
+    [ProducesResponseType(typeof(Paginator<VendaVO>), (int) HttpStatusCode.OK)]
+    public ActionResult<Paginator<VendaVO>> Get([FromQuery] PaginationQuery query)
     {
-        Console.WriteLine(jwt.GenerateToken("ADMIN"));
-        return "jwt.Issuer!";
-    }
-
-    [Authorize(Roles = "DEV")]
-    [HttpGet("private")]
-    public string GetPrivate() 
-    {
-        return "Private";
+        return Ok(Paginator<VendaVO>.GetPaginator(_vendaBusiness.FindAll(), query));
     }
 }
