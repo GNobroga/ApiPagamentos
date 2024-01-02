@@ -6,12 +6,12 @@ Esse projeto após sua conclusão será usado por um Frontend construído em Ang
 
 #### Jwt Bearer
 
-### Swashbuckle
+#### Swashbuckle
 
-### AutoMapper
+#### AutoMapper
 
-### Evolve
+#### Evolve
 
-### Sqlite 
+#### Sqlite 
 
-### Entity Framework
+#### Entity Framework
