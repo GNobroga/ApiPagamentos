@@ -10,4 +10,6 @@ public interface IVendaBusiness
 
     IEnumerable<VendaVO> FindAll();
 
+    bool Delete(string id);
+
 }

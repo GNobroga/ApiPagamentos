@@ -25,6 +25,11 @@ public class VendaBusiness : IVendaBusiness
        return _mapper.Map<VendaVO>(entity);
     }
 
+    public bool Delete(string id)
+    {
+        return _repository.Delete(id);
+    }
+
     public IEnumerable<VendaVO> FindAll()
     {
         return _mapper.Map<IEnumerable<VendaVO>>(_repository.FindAll());

@@ -46,10 +46,17 @@ public class VendasController : ControllerBase
         return _vendaBusiness.Create(vo);
     }
 
-    [HttpPut]
+    [HttpPut("{id}")]
     [ProducesResponseType(typeof(VendaVO), (int) HttpStatusCode.OK)]
-    public ActionResult<VendaVO> Put([FromBody] VendaVO vo)
+    public ActionResult<VendaVO> Put([FromRoute] string id, [FromBody] VendaVO vo)
     {
-        return _vendaBusiness.Create(vo);
+        return _vendaBusiness.Update(id, vo);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType((int) HttpStatusCode.OK)]
+    public ActionResult<bool> Delete([FromRoute] string id)
+    {
+        return _vendaBusiness.Delete(id);
     }
 }
