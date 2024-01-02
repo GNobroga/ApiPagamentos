@@ -11,7 +11,7 @@ public class Jwt
 
     public string? Issuer { get; set; }
 
-    public string GenerateToken(string role)
+    public string GenerateToken(string userId, string role)
     {
         var expiryIn = DateTime.Now.AddMinutes(10);
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret!));
@@ -19,7 +19,8 @@ public class Jwt
 
         var claims = new List<Claim>()
         {
-            new("role", role)
+            new("role", role),
+            new(JwtRegisteredClaimNames.Sub, userId)
         };
 
         var token = new JwtSecurityToken(
