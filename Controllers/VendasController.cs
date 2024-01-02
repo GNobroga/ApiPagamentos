@@ -30,9 +30,9 @@ public class VendasController : ControllerBase
     }
 
     [HttpGet("search")]
-    public ActionResult<string> GetByRangeDate([FromQuery] VendaDateQueryString query)
+    public ActionResult<VendaDateQueryString> GetByRangeDate([FromQuery] VendaDateQueryString query)
     {
-        return query.Inicio!;
+        return query.ApplyFilter(_vendaBusiness.FindAll());
     }
 
 }

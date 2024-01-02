@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using ApiPagamentos.ValueObjects;
-using Microsoft.VisualBasic;
 
 namespace ApiPagamentos.Pagination;
 
@@ -12,6 +10,8 @@ public class VendaDateQueryString : List<VendaVO>
 
     [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "O {0} não é um data válida")]
     public string? Fim { get; set; }
+
+    public VendaDateQueryString() {}
 
     public VendaDateQueryString(IEnumerable<VendaVO> items)
     {
@@ -31,8 +31,8 @@ public class VendaDateQueryString : List<VendaVO>
             throw new Exception("Não foi possível converter de String para DateOnly");
     }
 
-    public static VendaDateQueryString Filter(IEnumerable<VendaVO> items)
+    public VendaDateQueryString ApplyFilter(IEnumerable<VendaVO> items)
     {
-        return new VendaDateQueryString(Enumerable.Empty<VendaVO>().ToList());
+        return new VendaDateQueryString(items);
     }
 }
