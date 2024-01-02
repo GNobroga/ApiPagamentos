@@ -3,27 +3,34 @@ using ApiPagamentos.ValueObjects;
 
 namespace ApiPagamentos.Pagination;
 
-public class VendaDateQueryString : List<VendaVO>
+public class VendaDateFilter : List<VendaVO>
 {
-    [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "O {0} não é um data válida")]
-    public string? Inicio { get; set; }
 
-    [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "O {0} não é um data válida")]
-    public string? Fim { get; set; }
+    readonly string _inicio;
+    readonly string _fim;
 
-    public VendaDateQueryString() {}
-
-    public VendaDateQueryString(IEnumerable<VendaVO> items)
+    public class QueryString 
     {
-       AddRange(items.Where(item => IsAboveOrEqualsInicio(item.Data) || IsBelowOrEqualsFim(item.Data)));
+        [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "O {0} não é um data válida")]
+        public string? Inicio { get; set; }
+
+        [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "O {0} não é um data válida")]
+        public string? Fim { get; set; }
+    }
+
+    private VendaDateFilter(IEnumerable<VendaVO> items, QueryString query)
+    {
+        _inicio = query.Inicio!;
+        _fim = query.Fim!;
+       AddRange(items.Where(item => IsAboveOrEqualsInicio(item.Data) && IsBelowOrEqualsFim(item.Data)));
     }
 
     private bool IsAboveOrEqualsInicio(DateTime dateTime)
-        => string.IsNullOrEmpty(Inicio) || DateOnly.FromDateTime(dateTime) >= ConvertStringToDate(Inicio);
+        => string.IsNullOrEmpty(_inicio) || DateOnly.FromDateTime(dateTime) >= ConvertStringToDate(_inicio);
     
 
     private bool IsBelowOrEqualsFim(DateTime dateTime)
-        => string.IsNullOrEmpty(Fim) || DateOnly.FromDateTime(dateTime) <= ConvertStringToDate(Fim);
+        => string.IsNullOrEmpty(_fim) || DateOnly.FromDateTime(dateTime) <= ConvertStringToDate(_fim);
 
     private static DateOnly ConvertStringToDate(string value)
     {
@@ -31,8 +38,8 @@ public class VendaDateQueryString : List<VendaVO>
             throw new Exception("Não foi possível converter de String para DateOnly");
     }
 
-    public VendaDateQueryString ApplyFilter(IEnumerable<VendaVO> items)
+    public static VendaDateFilter ApplyFilter(IEnumerable<VendaVO> items, QueryString query)
     {
-        return new VendaDateQueryString(items);
+        return new VendaDateFilter(items, query);
     }
 }
