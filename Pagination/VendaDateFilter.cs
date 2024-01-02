@@ -5,7 +5,6 @@ namespace ApiPagamentos.Pagination;
 
 public class VendaDateFilter : List<VendaVO>
 {
-
     readonly string _inicio;
     readonly string _fim;
 
