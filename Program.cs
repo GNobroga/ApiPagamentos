@@ -70,6 +70,8 @@ if (app.Environment.IsDevelopment())
 
 app.AddMigration(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
+app.AddExceptionHandler();
+
 app.UseAuthorization();
 
 app.MapControllers();
