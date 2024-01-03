@@ -16,13 +16,12 @@ public class VendasController : ControllerBase
 {   
 
     public const string CONTENT_TYPE = "application/json";
-    readonly Jwt jwt;
+    //readonly Jwt jwt;
 
     readonly IVendaBusiness _vendaBusiness;
 
-    public VendasController(Jwt jwt, IVendaBusiness vendaBusiness)
+    public VendasController(IVendaBusiness vendaBusiness)
     {
-        this.jwt = jwt;
         _vendaBusiness = vendaBusiness;
     }
 

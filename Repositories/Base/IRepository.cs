@@ -2,7 +2,7 @@ using ApiPagamentos.Entities.Base;
 
 namespace ApiPagamentos.Repositories.Base;
 
-public interface IRepository<T> where T: BaseEntity
+public interface IRepository<T> where T : BaseEntity
 {
     T Create(T entity);
     T FindById(string id);
