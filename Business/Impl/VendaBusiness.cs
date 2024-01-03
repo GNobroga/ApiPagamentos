@@ -35,6 +35,13 @@ public class VendaBusiness : IVendaBusiness
         return _mapper.Map<IEnumerable<VendaVO>>(_repository.FindAll());
     }
 
+    public VendaVO FindById(string id)
+    {
+        return _repository.Exists(id) ?
+            _mapper.Map<VendaVO>(_repository.FindById(id))  :
+                throw new ApplicationException($"Venda com ID {id} não foi encontrada.");
+    }
+
     public VendaVO Update(string id, VendaVO vo)
     {
         if (_repository.Exists(id))

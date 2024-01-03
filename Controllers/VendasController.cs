@@ -32,6 +32,14 @@ public class VendasController : ControllerBase
         return Ok(Paginator<VendaVO>.GetPaginator(_vendaBusiness.FindAll(), query));
     }
 
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(VendaVO), (int) HttpStatusCode.OK)]
+    [ProducesResponseType((int) HttpStatusCode.BadRequest)]
+    public ActionResult<VendaVO> Get([FromRoute] string id)
+    {
+        return _vendaBusiness.FindById(id);
+    }
+
     [HttpGet("search")]
     public ActionResult<VendaDateFilter> GetByRangeDate([FromQuery] VendaDateFilter.QueryString query)
     {
