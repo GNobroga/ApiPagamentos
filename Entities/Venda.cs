@@ -17,7 +17,7 @@ public class Venda : BaseEntity
 
     [Column("status")]
     [Display(Name = "status")]
-    [RegularExpression(@"(processando|pago|falha)", ErrorMessage = "O {0} precisa ter um dos valores: processado | pago | falha")]
+    [RegularExpression(@"(processado|pago|falha)", ErrorMessage = "O {0} precisa ter um dos valores: processado | pago | falha")]
     [Required(ErrorMessage = "O {0} é requirido")]
     public string? Status { get; set; }
 
