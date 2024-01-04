@@ -1,5 +1,4 @@
 using System.Net;
-using ApiPagamentos.Authentication;
 using ApiPagamentos.Business;
 using ApiPagamentos.Pagination;
 using ApiPagamentos.ValueObjects;
