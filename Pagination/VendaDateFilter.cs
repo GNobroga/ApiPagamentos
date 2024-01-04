@@ -21,6 +21,19 @@ public class VendaDateFilter : List<VendaVO>
     {
         _inicio = query.Inicio!;
         _fim = query.Fim!;
+
+        if (!string.IsNullOrEmpty(_inicio) && !string.IsNullOrEmpty(_fim)) {
+            var dateOnlyInicio = ConvertStringToDate(_inicio);
+            var dateOnlyFim = ConvertStringToDate(_fim);
+
+            if (dateOnlyInicio > dateOnlyFim) 
+                throw new ApplicationException("A data início não pode ser maior que a data fim");
+            
+            if (dateOnlyFim < dateOnlyInicio) 
+                throw new ApplicationException("A datafim não pode ser menor que a data inicio");
+        }
+
+
        AddRange(items.Where(item => IsAboveOrEqualsInicio(item.Data) && IsBelowOrEqualsFim(item.Data)));
     }
 
